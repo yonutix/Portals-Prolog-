@@ -1,0 +1,75 @@
+Tema 1 Inteligenta artificiala
+
+Mihai Ionut Cosmin 432 C4
+
+
+
+Problema este rezolvata folosind cautare informata.Scopul calatorului este sa adune cat mai multa energie inainte de a se indrepta spre poarta.
+
+Solutia problemei are urmatoarele componente principale:
+Regula de generare - componenta este reunita in regula gen_pos
+Euristica - se rezuma la regula comparator
+Algoritm BFS - regula bfs
+Reguli de interactiune a structurilor de date
+
+
+_______________________________
+Structuri de date
+_______________________________
+Toate structurile de date sunt incapsulari de liste.
+
+In continuare o sa definesc multimile pe care le-am folosit:
+Frontiera - multimea locatiilor spre care au fost generate portale, dar nu au fost parcurse.
+Teritoriu - multimea locatiilor parcurse, in format: [[Nod1, [Vecin1...Vecin n]], ... [Nodz, [Vecin1...Vecin m]]]
+
+_______________________________
+Output
+_______________________________
+Daca au fost vizitate toate locurile si nu s-a ajuns la poarta este intors false.
+
+Pentru cazul cand este gasita iesirea am considerat necesar, tinand cont ca ni s-a 
+lasat aceasta posibilitate, sa mai adaug informatii pe langa outputul standard.
+Formatul outputului pe langa cel indicat in enunt:
+
+Energy: Energia curenta
+Frontiera: Lista cu nodurile din frontiera
+Teritoriu: Teritoriul
+Next: [43,5]
+
+Exemplu output:
+Energy: 30
+Frontiera: [[15,15],[25,25]]
+Teritoriu: [[[15,29],[[51,33],[50,14],[43,5],[29,36],[25,25],[15,25],[40,31]]],[[40,31],[[15,29],[15,15],[25,25],[51,33],[43,5],[50,14],[15,25]]],[[51,33],[[15,29],[40,31],[50,14],[29,36],[15,25],[43,5]]],[[50,14],[[15,29],[40,31],[15,15],[43,5],[15,25],[51,33]]],[[29,36],[[51,33],[43,5],[15,25],[25,25],[15,29]]],[[15,25],[[15,29],[29,36],[50,14],[43,5],[51,33],[40,31]]]]
+Next: [43,5]
+
+
+
+_______________________________
+Euristica
+_______________________________
+
+Este definita, practic de regula comparator, aceasta fiind regula se sortare a cozii cu prioritati
+care informeaza cautarea. Astfel calatorul se duce prima data spre locurile cu cel mai slab semnal 
+al portii, dupa care, spre locurile cu cel mai puternic semnal de energie.
+
+
+_______________________________
+Algoritm
+_______________________________
+
+Verifica daca nodul curent este poarta
+Daca este poarta termina
+Genereaza portale
+Updateaza teritoriul si frontiera cu noile noduri aparute
+Introdu in coada nodurile expandate care nu sunt in frontiera
+Resorteaza frontiera
+Scoate din coada urmatorul nod
+repeta cu urmatorul nod
+
+_______________________________
+BFS
+_______________________________
+
+Pentru cazul in care urmatorul nod din frontiera nu este vecin cu nodul pe care calatorul se afla 
+folosesc BFS ca sa gasesc cea mai scurta cale spre acel nod si adaug calea in solutia finala.
+
